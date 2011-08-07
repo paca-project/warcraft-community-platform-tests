@@ -2,7 +2,54 @@ Tests for various libraries that use the World of Warcraft Community Platform AP
 
 http://us.battle.net/wow/en/forum/2626217/
 
-These tests are intended to provide a way for devleopers to test various libraries that implement the community platform API.
+These tests are intended to provide a way for devleopers to test various libraries
+that implement the community platform API.
 
+The tests were developed to run on an ec2 node booted into Linux. Picking AMI(s)
+for testing was done by logging into the EC2 console:
+https://console.aws.amazon.com/ec2/home
+and then browsing the list of public AMIs for a recent CentOS AMI from rightscale:
+Images -> AMIs -> All Images -> Cent OS -> rightscale (search text)
+
+
+Start off by booting up a small (m1.small) instance on ec2 to run the tests.
+Since this is a m1.small node use a 32bit image: ami-90f607f9
+If this were a 64bit node the 64bit version is:  ami-9ae312f3
+
+ec2-run-instances \
+  ami-90f607f9  \
+  --key second \
+  --group quick-start-1 \
+  --instance-type m1.small
+
+Once it is booted up log in as root and run the scripts that install the languages
+that are used by the libraries that use the community platform API.
+
+Many of the install scripts will download the sources and compile from scratch.
+This can take a while to install. On a m1.small node that is installing Java,
+JavaScript (Rhino), PHP and three versions each of Python and Ruby the process
+takes 
+
+cd CentOS-5.4/
+chmod u+x install-all.bash 
+./install-all.bash
+
+This will result in a machine with Java, JavaScript, PHP, Ruby and Python
+installed that should be able to test a wide variety of libraries that use
+the community platform API.
+
+The install-all.bash script should take roughly 30-40 minutes to run on a m1.small
+ec2 node (most of that time spent compiling multiple versions of Ruby and Python)
+and it should produce output that looks like this:
+
+Starting install of Java: Sun Aug 7 01:34:12 EDT 2011
+Starting install of JavaScript/Rhino: Sun Aug 7 01:34:34 EDT 2011
+Starting install of PHP 5.3.6: Sun Aug 7 01:34:37 EDT 2011
+Starting install of Ruby 1.8.6: Sun Aug 7 01:44:26 EDT 2011
+Starting install of Ruby 1.8.7: Sun Aug 7 01:46:33 EDT 2011
+Starting install of Ruby 1.9.2: Sun Aug 7 01:48:48 EDT 2011
+Starting install of Python 2.5.6: Sun Aug 7 01:58:02 EDT 2011
+Starting install of Python 2.7.2: Sun Aug 7 02:02:03 EDT 2011
+Starting install of Python 3.2.1: Sun Aug 7 02:06:59 EDT 2011
 
 
