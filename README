@@ -30,7 +30,17 @@ This can take a while to install. On a m1.small node that is installing Java,
 JavaScript (Rhino), PHP and three versions each of Python and Ruby the process
 takes 
 
-cd CentOS-5.4/
+Download the scripts:
+wget \
+  https://github.com/paca-project/warcraft-community-platform-tests/tarball/master \
+  --no-check-certificate
+
+Unpack the scripts and put the CentOS-5.4 directory in ~:
+tar zxf master
+mv paca-project-warcraft-community-platform-tests-*/CentOS-5.4 ~
+
+Run the scripts:
+cd ~/CentOS-5.4/
 chmod u+x install-all.bash 
 ./install-all.bash
 
